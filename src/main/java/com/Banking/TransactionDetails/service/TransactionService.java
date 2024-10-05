@@ -47,16 +47,19 @@ public class TransactionService {
               TransferStatements recievertransferStatements = new TransferStatements(transactionDetails.getTransactionId(), transactionDetails.getRecieverAccountNumber(), transactionDetails.getAccountNumber(), "CREDIT", transactionDetails.getTransactionDate(), transactionDetails.getTransactionAmount(), recieversBalance);
                 transferStatementRepository.save(SendertransferStatements);
                 transferStatementRepository.save(recievertransferStatements);
-              ;
+              transactionDetailsRepository.save(transactionDetails);
+              System.out.println("Transaction Successfull");
 
-//
           }
           else {
               throw new RuntimeException("Insufficient balance");
           }
 
         }
-        transactionDetailsRepository.save(transactionDetails);
+      else {
+          throw new RuntimeException("Invalid Transaction Type");
+      }
+//        transactionDetailsRepository.save(transactionDetails);
         return transactionDetails;
     }
 
